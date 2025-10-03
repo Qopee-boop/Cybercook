@@ -1,0 +1,203 @@
+/* ─────────────────────────────────────────────────────────────
+   CyberCore – theme tokens & Bootstrap runtime variables
+   (Bootstrap 5.1+ supports CSS vars like --bs-primary at runtime)
+   ───────────────────────────────────────────────────────────── */
+:root{
+  /* Brand palette */
+  --cc-bg:        #ffffff;
+  --cc-blue:      #1d4ed8; /* primary */
+  --cc-blue-50:   #eef4ff; /* subtle blue background */
+  --cc-red:       #8b0000; /* dark red highlight */
+  --cc-text:      #1f2937; /* neutral dark */
+  --cc-muted:     #6b7280;
+
+  /* Bootstrap CSS custom properties (runtime theming) */
+  --bs-primary:         var(--cc-blue);
+  --bs-primary-rgb:     29, 78, 216;
+  --bs-danger:          var(--cc-red);
+  --bs-danger-rgb:      139, 0, 0;
+  --bs-body-color:      var(--cc-text);
+  --bs-body-bg:         var(--cc-bg);
+  --bs-link-color:      var(--cc-blue);
+  --bs-link-hover-color:#1740b6;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base typography & behavior
+   ───────────────────────────────────────────────────────────── */
+html{
+  scroll-behavior: smooth;
+  /* If you use a sticky header, this pads anchor scrolling globally */
+  scroll-padding-top: 5rem; /* ~navbar height */
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+}
+
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height: 1.6;
+  color: var(--cc-text);
+  background: var(--cc-bg);
+}
+
+/* Ensure anchored sections aren't hidden behind sticky navs */
+section[id]{ scroll-margin-top: 5rem; }
+
+/* Keep regular links underlined for readability; buttons handle their own. */
+a{ text-underline-offset: 0.12em; }
+a:hover{ text-decoration-thickness: 2px; }
+
+/* Accessible focus rings on interactive controls only */
+:focus-visible{
+  outline: 3px solid var(--cc-blue);
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Navbar
+   ───────────────────────────────────────────────────────────── */
+.navbar.scrolled{
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  background-color: #fff !important;
+}
+
+/* Brand mark (use a web path, not a Windows disk path) */
+.navbar-brand .brand-mark{
+  width: 36px; height: 36px; border-radius: 10px;
+  display: inline-block; margin-right: .5rem;
+  background: url("/logo.png") no-repeat center / contain;
+}
+
+/* Make nav links look like navigation (no underline), but keep hover/active feedback */
+.navbar .nav-link{
+  text-decoration: none;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible{
+  color: var(--cc-blue);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Hero
+   ───────────────────────────────────────────────────────────── */
+.hero-wrap{
+  position: relative;
+  background:
+    radial-gradient(75% 75% at 100% 0%,
+      rgba(139,0,0,.08) 0%,
+      rgba(43,108,176,.06) 60%,
+      transparent 100%),
+    #fff;
+}
+.hero-kicker{
+  color: var(--cc-red);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: .85rem;
+}
+.hero-title{
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+.hero-sub{
+  color: var(--cc-muted);
+  max-width: 56ch; /* comfortable line length */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Cards & modules
+   ───────────────────────────────────────────────────────────── */
+.feature-icon{
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(43,108,176,.12);
+  display: grid; place-items: center;
+  font-weight: 700; color: var(--cc-blue);
+}
+
+.module-card{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.module-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+/* Badges row */
+.badge-pill{
+  padding: .5rem .8rem; border-radius: 999px;
+  background: rgba(139,0,0,.08);
+  color: var(--cc-red);
+  font-weight: 600; font-size: .9rem;
+}
+
+/* CTA panel */
+.cta{
+  background: linear-gradient(120deg, rgba(43,108,176,.09), rgba(139,0,0,.08));
+  border: 1px solid rgba(43,108,176,.15);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Buttons and “button-like” links
+   ───────────────────────────────────────────────────────────── */
+/* Remove underline from anchors styled as buttons */
+a.btn,
+a.btn:visited,
+a.btn:hover,
+a.btn:focus,
+a.btn:active{
+  text-decoration: none !important;
+}
+
+/* Bootstrap-flavored colors */
+.btn-primary{
+  background: var(--cc-blue);
+  border-color: var(--cc-blue);
+}
+.btn-primary:hover{ filter: brightness(0.95); }
+
+.btn-danger{
+  background: var(--cc-red);
+  border-color: var(--cc-red);
+}
+.btn-danger:hover{ filter: brightness(0.95); }
+
+/* If you use .btn-link for visual parity with links, keep it non-underlined */
+.btn-link{ text-decoration: none; }
+.btn-link:hover{ text-decoration: underline; }
+
+/* ─────────────────────────────────────────────────────────────
+   Forms & quiz readability
+   ───────────────────────────────────────────────────────────── */
+.quiz-stem{ max-width: 65ch; font-size: 1.1rem; }
+
+.form-check .form-check-input{ width: 1.2rem; height: 1.2rem; }
+.form-check .form-check-label{ padding-left: .35rem; }
+
+.option-block{
+  padding: .75rem 1rem;
+  border: 1px solid #e5e7eb; border-radius: .5rem;
+}
+.option-block:hover{ background: #f9fafb; }
+
+/* Announcements/timers region should remain readable */
+#timerRegion{ color: var(--cc-muted); }
+
+/* ─────────────────────────────────────────────────────────────
+   Footer
+   ───────────────────────────────────────────────────────────── */
+.footer-link{
+  color: var(--cc-muted);
+  text-decoration: none;
+}
+.footer-link:hover{ color: var(--cc-blue); }
+
+/* ─────────────────────────────────────────────────────────────
+   Utility surfaces
+   ───────────────────────────────────────────────────────────── */
+.bg-hint{ background: var(--cc-blue-50); }
